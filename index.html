@@ -2,26 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>I Don't Care</title>
+  <title>NO</title>
   <style>
     body {
       margin: 0;
       background-color: black;
+      color: white;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      color: white;
+      font-family: sans-serif;
       font-size: 10rem;
-      font-family: Arial, sans-serif;
+      cursor: pointer;
+      user-select: none;
     }
   </style>
 </head>
-<body>
+<body onclick="playSound()">
   NO
-  <audio autoplay>
-    <source src="loud-vine-boom-sound.mp3" type="audio/mpeg">
-  </audio>
+  <audio id="loud-sound" src="loud-vine-boom-sound.mp3" preload="auto"></audio>
+
+  <script>
+    function playSound() {
+      const audio = document.getElementById("loud-sound");
+      audio.currentTime = 0; // rewind to start
+      audio.play().catch(err => {
+        console.warn("Autoplay blocked:", err);
+      });
+    }
+  </script>
 </body>
 </html>
