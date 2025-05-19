@@ -20,39 +20,170 @@
       position: relative;
     }
 
-    #flash {
+    #flash, #final-flash {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('RON.jpg') center center / cover no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.1s ease;
       z-index: 10;
+    }
+
+    #flash {
+      background-image: url('RON.jpg');
+      transition: opacity 0.1s ease;
+    }
+
+    #final-flash {
+      background-image: url('Cy.jpg');
+      transition: opacity 0.5s ease;
+    }
+
+    #text {
+      z-index: 1;
     }
   </style>
 </head>
-<body onclick="triggerEffect()">
+<body onclick="handleClick()">
   <div id="flash"></div>
-  NO
+  <div id="final-flash"></div>
+  <div id="text">NO</div>
+
+  <!-- Audio files -->
   <audio id="loud-sound" src="loud-vine-boom-sound.mp3" preload="auto"></audio>
+  <audio id="ending-sound" src="let-her-go.mp3" preload="auto"></audio>
 
   <script>
-    function triggerEffect() {
-      const audio = document.getElementById("loud-sound");
-      const flash = document.getElementById("flash");
+    let clickCount = 0;
+    const loudSound = document.getElementById("loud-sound");
+    const endingSound = document.getElementById("ending-sound");
+    const flash = document.getElementById("flash");
+    const finalFlash = document.getElementById("final-flash");
+    const text = document.getElementById("text");
 
-      // Play sound
-      audio.currentTime = 0;
-      audio.play().catch(err => console.warn("Autoplay blocked:", err));
+    function handleClick() {
+      clickCount++;
 
-      // Flash image
-      flash.style.opacity = 1;
-      setTimeout(() => {
-        flash.style.opacity = 0;
-      }, 300); // flash duration in ms
+      if (clickCount % 21 === 0) {
+        // Every 21st click
+        text.textContent = "YES";
+        endingSound.currentTime = 0;
+        endingSound.play().catch(err => console.warn("Play error:", err));
+        finalFlash.style.opacity = 1;
+
+        setTimeout(() => {
+          finalFlash.style.opacity = 0;
+          text.textContent = "NO"; // reset text after 10 seconds
+        }, 10000);
+      } else {
+        // Regular click
+        loudSound.currentTime = 0;
+        loudSound.play().catch(err => console.warn("Play error:", err));
+        flash.style.opacity = 1;
+        setTimeout(() => {
+          flash.style.opacity = 0;
+        }, 300);
+      }
     }
   </script>
 </body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NO</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      color: white;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: sans-serif;
+      font-size: 10rem;
+      cursor: pointer;
+      user-select: none;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #flash, #final-flash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    #flash {
+      background-image: url('scream.jpg');
+      transition: opacity 0.1s ease;
+    }
+
+    #final-flash {
+      background-image: url('ending.jpg');
+      transition: opacity 0.5s ease;
+    }
+
+    #text {
+      z-index: 1;
+    }
+  </style>
+</head>
+<body onclick="handleClick()">
+  <div id="flash"></div>
+  <div id="final-flash"></div>
+  <div id="text">NO</div>
+
+  <!-- Audio files -->
+  <audio id="loud-sound" src="loud.mp3" preload="auto"></audio>
+  <audio id="ending-sound" src="end.mp3" preload="auto"></audio>
+
+  <script>
+    let clickCount = 0;
+    const loudSound = document.getElementById("loud-sound");
+    const endingSound = document.getElementById("ending-sound");
+    const flash = document.getElementById("flash");
+    const finalFlash = document.getElementById("final-flash");
+    const text = document.getElementById("text");
+
+    function handleClick() {
+      clickCount++;
+
+      if (clickCount % 21 === 0) {
+        // Every 21st click
+        text.textContent = "YES";
+        endingSound.currentTime = 0;
+        endingSound.play().catch(err => console.warn("Play error:", err));
+        finalFlash.style.opacity = 1;
+
+        setTimeout(() => {
+          finalFlash.style.opacity = 0;
+          text.textContent = "NO"; // reset text after 10 seconds
+        }, 10000);
+      } else {
+        // Regular click
+        loudSound.currentTime = 0;
+        loudSound.play().catch(err => console.warn("Play error:", err));
+        flash.style.opacity = 1;
+        setTimeout(() => {
+          flash.style.opacity = 0;
+        }, 300);
+      }
+    }
+  </script>
+</body>
+</html>
